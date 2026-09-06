@@ -15,23 +15,29 @@ export async function sendTicketClosedEmail(toEmail: string, ticketId: string, t
   const reopenLink = `${env.NEXT_PUBLIC_APP_URL}/api/tickets/reopen?id=${ticketId}`
 
   try {
-    await resend.emails.send({
-      from: 'Service Desk <no-reply@tu-dominio.com>', // Debe configurarse un dominio verificado en Resend
+    const { data, error } = await resend.emails.send({
+      from: 'Service Desk <onboarding@resend.dev>', // Dominio de prueba oficial de Resend para desarrollo
       to: [toEmail],
       subject: `Ticket Resuelto: ${titulo}`,
       html: `
-        <div style="font-family: sans-serif; max-w: 600px; margin: auto;">
-          <h2>Tu ticket ha sido resuelto</h2>
-          <p>El equipo de conserjería ha marcado tu reporte <strong>"${titulo}"</strong> como solucionado.</p>
-          <hr />
+        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;">
+          <h2 style="color: #16a34a;">Tu ticket ha sido resuelto</h2>
+          <p>El equipo de servicios y conserjería ha marcado tu reporte <strong>"${titulo}"</strong> como solucionado.</p>
+          <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;" />
           <p><strong>¿No se solucionó correctamente o la avería persiste?</strong></p>
-          <p>Utiliza el siguiente botón para reabrir el ticket e informar inmediatamente a la coordinación (Auditoría de candado digital).</p>
-          <a href="${reopenLink}" style="display: inline-block; padding: 10px 20px; background-color: #ef4444; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">
-            No se solucionó / Reabrir Ticket
+          <p style="color: #666; font-size: 14px;">Utiliza el siguiente botón para activar el <em>Candado Digital</em> y reabrir el ticket automáticamente para auditoría:</p>
+          <a href="${reopenLink}" style="display: inline-block; padding: 12px 24px; background-color: #ef4444; color: white; text-decoration: none; font-weight: bold; border-radius: 6px; margin-top: 10px;">
+            ⚠️ No se solucionó / Reabrir Ticket
           </a>
         </div>
       `,
     });
+
+    if (error) {
+      console.error('Error retornado por Resend:', error);
+    } else {
+      console.log('Correo de Candado Digital enviado con éxito:', data);
+    }
   } catch (error) {
     console.error('Error enviando correo de cierre:', error);
   }
