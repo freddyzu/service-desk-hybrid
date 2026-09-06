@@ -16,7 +16,7 @@ export async function sendTicketClosedEmail(toEmail: string, ticketId: string, t
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Service Desk <onboarding@resend.dev>', // Dominio de prueba oficial de Resend para desarrollo
+      from: env.EMAIL_FROM, // Configurable por variable de entorno (por defecto onboarding@resend.dev)
       to: [toEmail],
       subject: `Ticket Resuelto: ${titulo}`,
       html: `
