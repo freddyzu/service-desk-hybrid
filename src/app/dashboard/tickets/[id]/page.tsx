@@ -4,8 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { format } from 'date-fns'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { TicketActionsClient } from './TicketActionsClient'
+
+type Insumo = { id: string; nombre: string; stock_actual: number; unidad_medida: string }
+type TicketCreator = { nombre_completo?: string | null }
 
 export default async function TicketPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -30,10 +33,10 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
   }
 
   // Traer insumos disponibles si es coordinador para el formulario de cierre
-  let insumos: any[] = []
+  let insumos: Insumo[] = []
   if (isCoordinador && (ticket.estado === 'aprobado' || ticket.estado === 'reabierto')) {
     const { data } = await supabase.from('insumos').select('*').order('nombre')
-    if (data) insumos = data
+    if (data) insumos = data as Insumo[]
   }
 
   return (
@@ -79,7 +82,7 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-muted-foreground font-semibold mb-1">Solicitante</p>
-              <p>{(Array.isArray(ticket.perfiles) ? ticket.perfiles[0]?.nombre_completo : ticket.perfiles?.nombre_completo) || 'Desconocido'}</p>
+              <p>{(() => { const creator = ticket.perfiles as TicketCreator | TicketCreator[] | null; return (Array.isArray(creator) ? creator[0]?.nombre_completo : creator?.nombre_completo) || 'Desconocido' })()}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground font-semibold mb-1">Fecha de Solicitud</p>

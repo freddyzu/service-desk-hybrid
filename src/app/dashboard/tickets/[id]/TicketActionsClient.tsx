@@ -8,6 +8,8 @@ import { Printer, CheckCircle } from 'lucide-react'
 import { approveTicket, closeTicket } from './actions'
 import { useState, useTransition } from 'react'
 
+type Insumo = { id: string; nombre: string; stock_actual: number; unidad_medida: string }
+
 export function TicketActionsClient({ 
   ticketId, 
   estado, 
@@ -15,7 +17,7 @@ export function TicketActionsClient({
 }: { 
   ticketId: string, 
   estado: string, 
-  insumos: any[] 
+  insumos: Insumo[] 
 }) {
   const [isPending, startTransition] = useTransition()
   const [showCloseForm, setShowCloseForm] = useState(false)
@@ -58,7 +60,7 @@ export function TicketActionsClient({
         )}
 
         {(estado === 'aprobado' || estado === 'reabierto') && (
-          <Button variant="default" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setShowCloseForm(!showCloseForm)}>
+          <Button variant="default" onClick={() => setShowCloseForm(!showCloseForm)}>
             <CheckCircle className="mr-2 h-4 w-4" /> Marcar como Resuelto
           </Button>
         )}
@@ -66,7 +68,7 @@ export function TicketActionsClient({
 
       {/* Formulario de Cierre Atómico */}
       {showCloseForm && (
-        <Card className="border-blue-200 hide-on-print mt-4">
+        <Card className="border-primary/40 hide-on-print mt-4">
           <CardHeader>
             <CardTitle className="text-lg">Cierre y Consumo de Material</CardTitle>
           </CardHeader>

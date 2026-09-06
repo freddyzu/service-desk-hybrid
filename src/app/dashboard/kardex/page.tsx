@@ -30,16 +30,16 @@ export default async function KardexPage() {
           <Link href="/dashboard" className={buttonVariants({ variant: "ghost", size: "icon" })}>
             <ArrowLeft className="h-5 w-5" />
           </Link>
-          <h2 className="text-2xl font-bold tracking-tight">Kárdex de Insumos</h2>
+          <div><p className="font-mono text-[10px] font-bold tracking-[.18em] text-primary">CONTROL DE RECURSOS</p><h2 className="text-2xl font-bold tracking-tight">Kárdex de Insumos</h2></div>
         </div>
-        <Link href="/dashboard/kardex/nuevo" className={buttonVariants()}>
-          <Plus className="mr-2 h-4 w-4" /> Nuevo Insumo
+        <Link href="/dashboard/kardex/nuevo" className={buttonVariants({ className: 'font-mono text-xs font-bold tracking-wide' })}>
+          <Plus className="mr-2 h-4 w-4" /> NUEVO INSUMO
         </Link>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {insumos?.map(insumo => (
-          <Card key={insumo.id}>
+          <Card key={insumo.id} className="border-border bg-card">
             <CardHeader className="pb-2">
               <CardTitle className="text-base truncate">{insumo.nombre}</CardTitle>
             </CardHeader>

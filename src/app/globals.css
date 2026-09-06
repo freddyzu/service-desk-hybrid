@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-jetbrains-mono);
+  --font-heading: Arial, Helvetica, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,38 +49,38 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #11100f;
+  --foreground: #f3efea;
+  --card: #1a1816;
+  --card-foreground: #f3efea;
+  --popover: #1f1c19;
+  --popover-foreground: #f3efea;
+  --primary: #ff5a1f;
+  --primary-foreground: #160d08;
+  --secondary: #2a2521;
+  --secondary-foreground: #f3efea;
+  --muted: #25211e;
+  --muted-foreground: #aaa19a;
+  --accent: #312a25;
+  --accent-foreground: #f3efea;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: #36302b;
+  --input: #3b342e;
+  --ring: #ff5a1f;
+  --chart-1: #ff5a1f;
+  --chart-2: #f3efea;
+  --chart-3: #c9a88f;
+  --chart-4: #75685e;
+  --chart-5: #3b342e;
+  --radius: 0.45rem;
+  --sidebar: #151311;
+  --sidebar-foreground: #f3efea;
+  --sidebar-primary: #ff5a1f;
+  --sidebar-primary-foreground: #160d08;
+  --sidebar-accent: #2a2521;
+  --sidebar-accent-foreground: #f3efea;
+  --sidebar-border: #36302b;
+  --sidebar-ring: #ff5a1f;
 }
 
 .dark {
@@ -123,8 +123,24 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(circle at 100% 0%, rgb(255 90 31 / 10%), transparent 27rem);
   }
   html {
     @apply font-sans;
   }
 }
+
+.magma-brand { display:flex; align-items:center; gap:12px; min-width:0; }
+.magma-icon { width:30px; height:30px; object-fit:contain; flex:none; }
+.magma-wordmark { display:flex; flex-direction:column; line-height:1; }
+.magma-wordmark > span { font-family:var(--font-anton), Impact, sans-serif; font-size:20px; letter-spacing:.04em; color:#f3efea; }
+.magma-wordmark small, .magma-product-label { font-family:var(--font-jetbrains-mono), monospace; }
+.magma-wordmark small { font-size:8.5px; letter-spacing:.52em; color:rgb(243 239 234 / 65%); margin-top:3px; }
+.magma-divider { height:30px; border-left:1px solid rgb(255 255 255 / 12%); }
+.magma-product-label { font-size:10px; letter-spacing:.19em; color:#d9cfc8; font-weight:800; white-space:nowrap; }
+.magma-brand--compact { gap:9px; }
+.magma-brand--compact .magma-icon { width:25px; height:25px; }
+.magma-brand--compact .magma-wordmark > span { font-size:17px; }
+.magma-brand--compact .magma-wordmark small { font-size:7px; }
+
+::selection { background:#ff5a1f; color:#160d08; }

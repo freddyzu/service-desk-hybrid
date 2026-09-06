@@ -2,7 +2,8 @@ import { login, signup } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { MagmaBrand } from '@/components/magma-brand'
 
 export default async function LoginPage({
   searchParams,
@@ -11,11 +12,13 @@ export default async function LoginPage({
 }) {
   const { message } = await searchParams
   return (
-    <div className="flex-1 flex flex-col w-full px-4 sm:max-w-md justify-center gap-2 mt-8">
-      <Card>
+    <div className="flex-1 flex flex-col w-full px-4 sm:max-w-md justify-center gap-5 py-10">
+      <MagmaBrand className="justify-center" />
+      <Card className="border-border bg-card shadow-[0_24px_80px_rgb(0_0_0_/_25%)]">
         <CardHeader>
-          <CardTitle>Service Desk</CardTitle>
-          <CardDescription>Inicia sesión o crea una cuenta nueva.</CardDescription>
+          <p className="font-mono text-[10px] font-bold tracking-[.18em] text-primary">ACCESO SEGURO</p>
+          <CardTitle className="text-xl">Centro de operaciones</CardTitle>
+          <CardDescription>Ingresa para reportar, resolver y mantener el control.</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="flex-1 flex flex-col w-full gap-4 text-foreground">

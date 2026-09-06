@@ -63,7 +63,7 @@ export async function closeTicket(formData: FormData) {
   }
 
   // Integración con Resend para el envío del correo del "Candado Digital"
-  const userProfile: any = ticketData?.perfiles
+  const userProfile = ticketData?.perfiles as { email?: string | null } | { email?: string | null }[] | null
   const userEmail = Array.isArray(userProfile) ? userProfile[0]?.email : userProfile?.email
   if (userEmail && ticketData) {
     await sendTicketClosedEmail(userEmail, ticketId, ticketData.titulo)

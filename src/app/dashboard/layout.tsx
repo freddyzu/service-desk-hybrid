@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Home, Ticket, User, Package } from 'lucide-react'
+import { MagmaBrand } from '@/components/magma-brand'
 
 export default async function DashboardLayout({
   children,
@@ -27,11 +28,9 @@ export default async function DashboardLayout({
   return (
     <div className="flex flex-col h-full w-full">
       {/* Top Navbar / Header */}
-      <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-background px-4 sm:px-6">
+      <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur sm:px-6">
         <div className="flex items-center gap-6">
-          <Link href="/dashboard" className="text-lg font-bold tracking-tight hover:opacity-80">
-            Service Desk
-          </Link>
+          <Link href="/dashboard" className="hover:opacity-80"><MagmaBrand /></Link>
           {/* Navegación Desktop */}
           <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
             <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -53,7 +52,7 @@ export default async function DashboardLayout({
 
         <div className="flex items-center gap-3">
           <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
-            isCoordinador ? 'bg-purple-500/15 text-purple-600 border border-purple-300 dark:border-purple-800' : 'bg-muted text-muted-foreground'
+            isCoordinador ? 'border border-primary/40 bg-primary/15 text-primary' : 'border border-border bg-muted text-muted-foreground'
           }`}>
             {isCoordinador ? 'Coordinador' : 'Empleado'}
           </span>
