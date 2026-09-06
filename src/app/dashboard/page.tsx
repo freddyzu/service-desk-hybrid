@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -29,9 +29,9 @@ export default async function DashboardPage() {
             <CardDescription>Visualiza el estado de tus reportes</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button asChild className="w-full">
-              <Link href="/dashboard/tickets">Ver Tickets</Link>
-            </Button>
+            <Link href="/dashboard/tickets" className={buttonVariants({ className: "w-full" })}>
+              Ver Tickets
+            </Link>
           </CardContent>
         </Card>
 
@@ -42,9 +42,9 @@ export default async function DashboardPage() {
               <CardDescription>Administra el inventario actual</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href="/dashboard/kardex">Ir al Kárdex</Link>
-              </Button>
+              <Link href="/dashboard/kardex" className={buttonVariants({ variant: "secondary", className: "w-full" })}>
+                Ir al Kárdex
+              </Link>
             </CardContent>
           </Card>
         )}

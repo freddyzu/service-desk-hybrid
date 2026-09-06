@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { format } from 'date-fns'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { TicketActionsClient } from './TicketActionsClient'
 
 export default async function TicketPage({ params }: { params: Promise<{ id: string }> }) {
@@ -50,11 +50,9 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
       `}} />
 
       <div className="flex items-center gap-2 hide-on-print">
-        <Button variant="ghost" size="icon" asChild>
-          <Link href="/dashboard/tickets">
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-        </Button>
+        <Link href="/dashboard/tickets" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+          <ArrowLeft className="h-5 w-5" />
+        </Link>
         <h2 className="text-2xl font-bold tracking-tight">Detalle del Ticket</h2>
       </div>
 
@@ -81,7 +79,7 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-muted-foreground font-semibold mb-1">Solicitante</p>
-              <p>{ticket.perfiles?.nombre_completo || 'Desconocido'}</p>
+              <p>{(Array.isArray(ticket.perfiles) ? ticket.perfiles[0]?.nombre_completo : ticket.perfiles?.nombre_completo) || 'Desconocido'}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground font-semibold mb-1">Fecha de Solicitud</p>
@@ -100,6 +98,24 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
               {ticket.descripcion}
             </p>
           </div>
+
+          {/* Evidencia Fotográfica */}
+          {ticket.fotos_urls && ticket.fotos_urls.length > 0 && (
+            <div>
+              <p className="text-sm text-muted-foreground font-semibold mb-2">Evidencia Fotográfica</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {ticket.fotos_urls.map((fotoUrl: string, idx: number) => (
+                  <div key={idx} className="relative rounded-lg overflow-hidden border bg-muted/30 p-1">
+                    <img 
+                      src={fotoUrl} 
+                      alt={`Foto evidencia ${idx + 1}`} 
+                      className="w-full h-auto max-h-80 object-contain rounded-md mx-auto"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Sección de firmas exclusiva para el documento físico impreso */}
           <div className="hidden print:block mt-12 pt-8 border-t-2 border-dashed">

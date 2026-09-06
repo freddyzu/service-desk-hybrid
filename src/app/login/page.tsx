@@ -49,10 +49,10 @@ export default async function LoginPage({
               />
             </div>
 
-            <Button formAction={login} className="w-full">
+            <Button type="submit" formAction={login} className="w-full">
               Iniciar Sesión
             </Button>
-            <Button formAction={signup} variant="outline" className="w-full">
+            <Button type="submit" formAction={signup} variant="outline" className="w-full">
               Registrarse
             </Button>
             

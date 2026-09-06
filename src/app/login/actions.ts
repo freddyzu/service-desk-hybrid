@@ -16,7 +16,8 @@ export async function login(formData: FormData) {
   })
 
   if (error) {
-    redirect('/login?message=No se pudo iniciar sesión')
+    console.error('Error login:', error.message)
+    redirect(`/login?message=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/', 'layout')
@@ -30,7 +31,9 @@ export async function signup(formData: FormData) {
   const password = formData.get('password') as string
   const nombre_completo = formData.get('nombre_completo') as string
 
-  const { error } = await supabase.auth.signUp({
+  console.log('Intentando registrar:', { email, nombre_completo })
+
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -41,7 +44,13 @@ export async function signup(formData: FormData) {
   })
 
   if (error) {
-    redirect('/login?message=No se pudo registrar cuenta')
+    console.error('Error signup:', error.message)
+    redirect(`/login?message=${encodeURIComponent(error.message)}`)
+  }
+
+  // Si Supabase tiene confirmación de email activa, no devuelve session inmediatamente
+  if (data.user && !data.session) {
+    redirect('/login?message=Cuenta+creada.+Por+favor+revisa+tu+correo+para+confirmar+tu+cuenta+o+inicia+sesión.')
   }
 
   revalidatePath('/', 'layout')

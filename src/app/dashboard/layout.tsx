@@ -27,10 +27,37 @@ export default async function DashboardLayout({
   return (
     <div className="flex flex-col h-full w-full">
       {/* Top Navbar / Header */}
-      <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
-        <h1 className="text-lg font-semibold">Service Desk</h1>
-        <div className="ml-auto flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">{user.email}</span>
+      <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-background px-4 sm:px-6">
+        <div className="flex items-center gap-6">
+          <Link href="/dashboard" className="text-lg font-bold tracking-tight hover:opacity-80">
+            Service Desk
+          </Link>
+          {/* Navegación Desktop */}
+          <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
+            <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+              Inicio
+            </Link>
+            <Link href="/dashboard/tickets" className="text-muted-foreground hover:text-foreground transition-colors">
+              Tickets
+            </Link>
+            {isCoordinador && (
+              <Link href="/dashboard/kardex" className="text-muted-foreground hover:text-foreground transition-colors">
+                Kárdex
+              </Link>
+            )}
+            <Link href="/dashboard/perfil" className="text-muted-foreground hover:text-foreground transition-colors">
+              Perfil
+            </Link>
+          </nav>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
+            isCoordinador ? 'bg-purple-500/15 text-purple-600 border border-purple-300 dark:border-purple-800' : 'bg-muted text-muted-foreground'
+          }`}>
+            {isCoordinador ? 'Coordinador' : 'Empleado'}
+          </span>
+          <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">{user.email}</span>
         </div>
       </header>
 
